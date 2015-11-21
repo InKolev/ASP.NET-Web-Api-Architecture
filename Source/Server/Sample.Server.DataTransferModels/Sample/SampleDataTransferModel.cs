@@ -2,8 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using Data.Common.Constants;
+    using Common.Mappings.Contracts;
+    using Data.Models.Models;
 
-    public class SampleDataTransferModel
+    public class SampleDataTransferModel : IMapFrom<SampleModel>
     {
         [Required]
         [MaxLength(ValidationConstants.SampleDescriptionMaxLength, ErrorMessage = ValidationConstants.SampleDescriptionLengthErrorMessage)]

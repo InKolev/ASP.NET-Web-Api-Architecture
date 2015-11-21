@@ -14,19 +14,19 @@
 
     public class SampleService : ISampleService
     {
-        private readonly IRepository<Sample> samples;
+        private readonly IRepository<SampleModel> samples;
 
-        public SampleService(IRepository<Sample> samples)
+        public SampleService(IRepository<SampleModel> samples)
         {
             this.samples = samples;
         }
 
-        public IQueryable<Sample> GetAll()
+        public IQueryable<SampleModel> GetAll()
         {
             return this.samples.All();
         }
 
-        public async Task<Sample> GetById(int id)
+        public async Task<SampleModel> GetById(int id)
         {
             var sample = await this.samples.All().SingleOrDefaultAsync(s => s.Id == id);
 
@@ -35,7 +35,7 @@
 
         public async Task<int> Add(SampleDataTransferModel model)
         {
-            var modelToAdd = Mapper.Map<Sample>(model);
+            var modelToAdd = Mapper.Map<SampleModel>(model);
 
             this.samples.Add(modelToAdd);
 
@@ -44,7 +44,7 @@
             return modelToAdd.Id;
         }
 
-        public async Task<bool> Remove(Sample model)
+        public async Task<bool> Remove(SampleModel model)
         {
             this.samples.Delete(model);
             await this.samples.SaveChangesAsync();

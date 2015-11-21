@@ -8,13 +8,13 @@
 
     public interface ISampleService : IService
     {
-        IQueryable<Sample> GetAll();
+        IQueryable<SampleModel> GetAll();
 
-        Task<Sample> GetById(int id);
+        Task<SampleModel> GetById(int id);
 
         Task<int> Add(SampleDataTransferModel model);
 
-        Task<bool> Remove(Sample model);
+        Task<bool> Remove(SampleModel model);
 
         Task<bool> RemoveById(int id);
     }

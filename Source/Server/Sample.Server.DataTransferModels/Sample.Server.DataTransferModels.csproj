@@ -34,6 +34,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -57,6 +61,14 @@
     <ProjectReference Include="..\..\Data\Sample.Data.Common\Sample.Data.Common.csproj">
       <Project>{a3517b2f-0f8f-4731-80af-1645a135033b}</Project>
       <Name>Sample.Data.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\Sample.Data.Models\Sample.Data.Models.csproj">
+      <Project>{3a0acc93-7f52-4cfc-b796-efaea960875b}</Project>
+      <Name>Sample.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sample.Server.Common\Sample.Server.Common.csproj">
+      <Project>{3d6fa814-dcaf-4629-ad0b-f786330a1f18}</Project>
+      <Name>Sample.Server.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

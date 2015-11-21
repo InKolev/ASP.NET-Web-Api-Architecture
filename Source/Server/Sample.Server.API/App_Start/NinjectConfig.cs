@@ -1,27 +1,32 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Sample.Server.API.App_Start.NinjectConfig), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Sample.Server.API.App_Start.NinjectConfig), "Stop")]
+using Sample.Server.API.App_Start;
+using WebActivatorEx;
+
+[assembly: PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
+[assembly: ApplicationShutdownMethodAttribute(typeof(NinjectConfig), "Stop")]
 
 namespace Sample.Server.API.App_Start
 {
     using System;
     using System.Web;
+
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
+    using Ninject;
+    using Ninject.Extensions.Conventions;
+    using Ninject.Web.Common;
+
+    using Data.Common.Contracts;
     using Data.Contracts;
     using Data.Contexts;
-    using Data.Common.Contracts;
     using Data.Common.Repositories;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using Ninject;
-    using Ninject.Web.Common;
-    using Ninject.Extensions.Conventions;
-    using Services.Common.Contracts;
     using Sample.Common.Constants;
 
-    public class NinjectConfig
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
-        /// Starts the application
+        ///     Starts the application
         /// </summary>
         public static void Start()
         {
@@ -31,7 +36,7 @@ namespace Sample.Server.API.App_Start
         }
 
         /// <summary>
-        /// Stops the application.
+        ///     Stops the application.
         /// </summary>
         public static void Stop()
         {
@@ -39,20 +44,19 @@ namespace Sample.Server.API.App_Start
         }
 
         /// <summary>
-        /// Creates the kernel that will manage your application.
+        ///     Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-
             var kernel = new StandardKernel();
+
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
-
                 return kernel;
             }
             catch
@@ -63,24 +67,18 @@ namespace Sample.Server.API.App_Start
         }
 
         /// <summary>
-        /// Load your modules or register your services here!
+        ///     Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ISampleDbContext>()
-                .To<SampleDbContext>()
-                .InRequestScope();
+            kernel.Bind<ISampleDbContext>().To<SampleDbContext>().InRequestScope();
 
-            kernel.Bind(typeof(IRepository<>))
-                .To(typeof(EntityFrameworkGenericRepository<>));
+            kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
 
-            kernel.Bind(
-                k => 
-                    k.From(Assemblies.DataServices)
-                    .SelectAllClasses()
-                    .InheritedFrom(typeof(IService))
-                    .BindDefaultInterface());
+            kernel.Bind(b => b.From(Assemblies.DataServices)
+                .SelectAllClasses()
+                .BindDefaultInterface());
         }
     }
 }

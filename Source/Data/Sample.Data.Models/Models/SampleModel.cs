@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Common.Constants;
 
-    public class Sample
+    public class SampleModel
     {
         [Key]
         [Required]

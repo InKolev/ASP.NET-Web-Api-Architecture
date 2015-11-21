@@ -7,12 +7,12 @@
     using System.Net.Http;
     using System.Web.Http;
     using Services.Data.Contracts;
-    using AutoMapper;
     using DataTransferModels.Sample;
     using System.Threading.Tasks;
     using System.Data.Entity;
     using Infrastructure.Validation;
     using Data.Models.Models;
+    using AutoMapper;
 
     // [Authorize] the whole controller or only some of his methods.
     // TODO: Try returning ResponseResultObject() for each method;
@@ -58,7 +58,7 @@
         [ValidateRequestModel]
         public async Task<IHttpActionResult> Remove(SampleDataTransferModel sample)
         {
-            var sampleToRemove = Mapper.Map<Sample>(sample);
+            var sampleToRemove = Mapper.Map<SampleModel>(sample);
             var result = await this.samples.Remove(sampleToRemove);
 
             return this.Ok(result);

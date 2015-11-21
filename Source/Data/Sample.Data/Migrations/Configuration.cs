@@ -1,11 +1,13 @@
 namespace Sample.Data.Migrations
 {
+    using Contexts;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Models.Models;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Sample.Data.Contexts.SampleDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<SampleDbContext>
     {
         public Configuration()
         {
@@ -15,20 +17,23 @@ namespace Sample.Data.Migrations
             this.AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(Sample.Data.Contexts.SampleDbContext context)
+        protected override void Seed(SampleDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var samplesExist = context.Samples.Any();
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            if (!samplesExist)
+            {
+                var sampleData = new SampleModel[10];
+
+                for (int i = 0; i < sampleData.Length; i++)
+                {
+                    sampleData[i] = new SampleModel();
+                    sampleData[i].Description = String.Format("Sample description {0}", i);
+                    context.Samples.Add(sampleData[i]);
+                }
+
+                context.SaveChanges();
+            }
         }
     }
 }
