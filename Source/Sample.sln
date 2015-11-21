@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Services.Data", "Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Services.Common", "Services\Sample.Services.Common\Sample.Services.Common.csproj", "{690B2741-FBBD-454F-A398-4720FA1422FD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7293052D-7ECE-42A0-B2BE-5AD65755B176}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Common.Constants", "Common\Sample.Common.Constants\Sample.Common.Constants.csproj", "{EA5DB80F-BF9D-4565-8535-05E50C17FA11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,10 @@ Global
 		{690B2741-FBBD-454F-A398-4720FA1422FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{690B2741-FBBD-454F-A398-4720FA1422FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{690B2741-FBBD-454F-A398-4720FA1422FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA5DB80F-BF9D-4565-8535-05E50C17FA11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA5DB80F-BF9D-4565-8535-05E50C17FA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA5DB80F-BF9D-4565-8535-05E50C17FA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA5DB80F-BF9D-4565-8535-05E50C17FA11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +93,6 @@ Global
 		{A3517B2F-0F8F-4731-80AF-1645A135033B} = {89A32729-111A-41BD-8503-D81D8ECB5290}
 		{62A695C6-2F8A-4347-8009-ABB0D679B912} = {DFCED5F3-2686-4A0B-83CA-ABF1F1A9612F}
 		{690B2741-FBBD-454F-A398-4720FA1422FD} = {DFCED5F3-2686-4A0B-83CA-ABF1F1A9612F}
+		{EA5DB80F-BF9D-4565-8535-05E50C17FA11} = {7293052D-7ECE-42A0-B2BE-5AD65755B176}
 	EndGlobalSection
 EndGlobal

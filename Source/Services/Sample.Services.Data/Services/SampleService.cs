@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using AutoMapper;
     using Contracts;
     using Sample.Data.Common.Contracts;
     using Sample.Data.Models.Models;
+    using Server.DataTransferModels.Sample;
 
     public class SampleService : ISampleService
     {
@@ -23,37 +26,42 @@
             return this.samples.All();
         }
 
-        public Sample GetById(int id)
+        public async Task<Sample> GetById(int id)
         {
-            var sample = this.samples.All().SingleOrDefault(s => s.Id == id);
+            var sample = await this.samples.All().SingleOrDefaultAsync(s => s.Id == id);
 
             return sample;
         }
 
-        public async Task<int> Add(Sample model)
+        public async Task<int> Add(SampleDataTransferModel model)
         {
-            this.samples.Add(model);
+            var modelToAdd = Mapper.Map<Sample>(model);
+
+            this.samples.Add(modelToAdd);
+
             await this.samples.SaveChangesAsync();
 
-            return model.Id;
+            return modelToAdd.Id;
         }
 
-        public async void Remove(Sample model)
+        public async Task<bool> Remove(Sample model)
         {
             this.samples.Delete(model);
             await this.samples.SaveChangesAsync();
+
+            var modelExists = await this.samples.All().AnyAsync(s => s.Id == model.Id);
+
+            return !modelExists;
         }
 
-        public async void RemoveById(int id)
+        public async Task<bool> RemoveById(int id)
         {
             this.samples.Delete(id);
             await this.samples.SaveChangesAsync();
-        }
 
-        public async void Update(Sample model)
-        {
-            this.samples.Update(model);
-            await this.samples.SaveChangesAsync();
+            var modelExists = await this.samples.All().AnyAsync(s => s.Id == id);
+
+            return !modelExists;
         }
     }
 }

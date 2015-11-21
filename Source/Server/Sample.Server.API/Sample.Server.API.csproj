@@ -207,6 +207,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,6 +228,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Sample.Common.Constants\Sample.Common.Constants.csproj">
+      <Project>{ea5db80f-bf9d-4565-8535-05e50c17fa11}</Project>
+      <Name>Sample.Common.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\Sample.Data.Common\Sample.Data.Common.csproj">
       <Project>{a3517b2f-0f8f-4731-80af-1645a135033b}</Project>
       <Name>Sample.Data.Common</Name>
