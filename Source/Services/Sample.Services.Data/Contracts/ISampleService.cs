@@ -5,12 +5,19 @@
     using Common.Contracts;
     using Sample.Data.Models.Models;
     using Server.DataTransferModels.Sample;
+    using System.Collections.Generic;
 
     public interface ISampleService : IService
     {
-        IQueryable<SampleModel> GetAll();
+        IQueryable<SampleModel> All();
 
-        Task<SampleModel> GetById(int id);
+        Task<List<SampleDataTransferModel>> GetAll();
+
+        Task<SampleDataTransferModel> GetById(int id);
+
+        Task<SampleDataTransferModel> GetById(string id);
+
+        Task<List<SampleDataTransferModel>> GetPage(int page);
 
         Task<int> Add(SampleDataTransferModel model);
 

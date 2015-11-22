@@ -23,7 +23,7 @@ namespace Sample.Data.Migrations
 
             if (!samplesExist)
             {
-                var sampleData = new SampleModel[10];
+                var sampleData = new SampleModel[40];
 
                 for (int i = 0; i < sampleData.Length; i++)
                 {

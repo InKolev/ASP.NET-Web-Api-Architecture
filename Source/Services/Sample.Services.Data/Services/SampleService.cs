@@ -11,6 +11,7 @@
     using Sample.Data.Models.Models;
     using Server.DataTransferModels.Sample;
     using Sample.Data.Contracts;
+    using AutoMapper.QueryableExtensions;
 
     public class SampleService : ISampleService
     {
@@ -21,16 +22,55 @@
             this.samples = samples;
         }
 
-        public IQueryable<SampleModel> GetAll()
+        public IQueryable<SampleModel> All()
         {
             return this.samples.All();
         }
 
-        public async Task<SampleModel> GetById(int id)
+        public async Task<List<SampleDataTransferModel>> GetAll()
+        {
+            var result = await this.samples.All()
+                .ProjectTo<SampleDataTransferModel>()
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<SampleDataTransferModel> GetById(int id)
         {
             var sample = await this.samples.All().SingleOrDefaultAsync(s => s.Id == id);
+            var result = Mapper.Map<SampleDataTransferModel>(sample);
 
-            return sample;
+            return result;
+        }
+
+        public async Task<SampleDataTransferModel> GetById(string id)
+        {
+            int searchedId = -1;
+            int.TryParse(id.Trim(), out searchedId);
+
+            SampleDataTransferModel result = null;
+
+            if (searchedId > -1)
+            {
+                var sample = await this.samples.All().SingleOrDefaultAsync(s => s.Id == searchedId);
+                result = Mapper.Map<SampleDataTransferModel>(sample);
+            }
+
+            return result;
+        }
+
+        public async Task<List<SampleDataTransferModel>> GetPage(int page)
+        {
+            var itemsPerPage = 10;
+
+            var result = await this.samples.All()
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .ProjectTo<SampleDataTransferModel>()
+                .ToListAsync();
+
+            return result;
         }
 
         public async Task<int> Add(SampleDataTransferModel model)
@@ -68,7 +108,7 @@
         {
             var modelExists = await this.samples.All().AnyAsync(s => s.Id == id);
 
-            if(modelExists)
+            if (modelExists)
             {
                 this.samples.Delete(id);
                 await this.samples.SaveChangesAsync();
@@ -78,5 +118,6 @@
 
             return (!modelStillExists && modelExists);
         }
+
     }
 }
