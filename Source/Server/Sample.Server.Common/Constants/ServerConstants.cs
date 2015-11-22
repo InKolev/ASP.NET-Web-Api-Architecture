@@ -9,5 +9,10 @@
     public class ServerConstants
     {
         public const string RequestCannotBeEmpty = "Request cannot be empty or have NULL properties.";
+
+        // SampleController
+        public const string RemoveSuccessful = "Item successfully removed";
+        public const string RemoveFailed = "Invalid request. Item removal failed";
+
     }
 }

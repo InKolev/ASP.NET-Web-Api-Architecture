@@ -1,8 +1,8 @@
 ﻿namespace Sample.Data.Models.Models
 {
+    using Common.Constants;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Common.Constants;
 
     public class SampleModel
     {

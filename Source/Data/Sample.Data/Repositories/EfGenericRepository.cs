@@ -1,4 +1,4 @@
-﻿namespace Sample.Data.Common.Repositories
+﻿namespace Sample.Data.Repositories
 {
     using Contracts;
     using System;
@@ -8,7 +8,7 @@
 
     public class EfGenericRepository<T> : IRepository<T> where T : class
     {
-        public EfGenericRepository(DbContext context)
+        public EfGenericRepository(ISampleDbContext context)
         {
             if (context == null)
             {
@@ -21,7 +21,7 @@
 
         protected IDbSet<T> DbSet { get; set; }
 
-        protected DbContext Context { get; set; }
+        protected ISampleDbContext Context { get; set; }
 
         public virtual IQueryable<T> All()
         {

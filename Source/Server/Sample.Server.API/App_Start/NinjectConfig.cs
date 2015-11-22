@@ -15,11 +15,10 @@ namespace Sample.Server.API.App_Start
     using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
 
-    using Data.Common.Contracts;
-    using Data.Contracts;
     using Data.Contexts;
-    using Data.Common.Repositories;
     using Sample.Common.Constants;
+    using Data.Contracts;
+    using Data.Repositories;
 
     public static class NinjectConfig
     {

@@ -85,15 +85,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\SampleDbContext.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\ISampleDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EfGenericRepository.cs" />
+    <Compile Include="Contexts\SampleDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Sample.Data.Models\Sample.Data.Models.csproj">
       <Project>{3a0acc93-7f52-4cfc-b796-efaea960875b}</Project>

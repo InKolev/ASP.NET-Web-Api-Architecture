@@ -8,9 +8,9 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
-    using Sample.Data.Common.Contracts;
     using Sample.Data.Models.Models;
     using Server.DataTransferModels.Sample;
+    using Sample.Data.Contracts;
 
     public class SampleService : ISampleService
     {
@@ -38,30 +38,45 @@
             var modelToAdd = Mapper.Map<SampleModel>(model);
 
             this.samples.Add(modelToAdd);
-
             await this.samples.SaveChangesAsync();
 
             return modelToAdd.Id;
         }
 
-        public async Task<bool> Remove(SampleModel model)
+        public async Task<bool> Remove(SampleDataTransferModel model)
         {
-            this.samples.Delete(model);
-            await this.samples.SaveChangesAsync();
+            var sampleToDelete = await this.samples.All()
+                .Where(s => s.Description == model.Description)
+                .FirstOrDefaultAsync();
 
-            var modelExists = await this.samples.All().AnyAsync(s => s.Id == model.Id);
+            var modelExistsInDatabase = false;
+            var modelStillExists = false;
 
-            return !modelExists;
+            if (sampleToDelete != null)
+            {
+                modelExistsInDatabase = true;
+                this.samples.Delete(sampleToDelete);
+                await this.samples.SaveChangesAsync();
+
+                modelStillExists = await this.samples.All().AnyAsync(s => s.Id == sampleToDelete.Id);
+            }
+
+            return (!modelStillExists && modelExistsInDatabase);
         }
 
         public async Task<bool> RemoveById(int id)
         {
-            this.samples.Delete(id);
-            await this.samples.SaveChangesAsync();
-
             var modelExists = await this.samples.All().AnyAsync(s => s.Id == id);
 
-            return !modelExists;
+            if(modelExists)
+            {
+                this.samples.Delete(id);
+                await this.samples.SaveChangesAsync();
+            }
+
+            var modelStillExists = await this.samples.All().AnyAsync(s => s.Id == id);
+
+            return (!modelStillExists && modelExists);
         }
     }
 }

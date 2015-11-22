@@ -1,8 +1,9 @@
 ﻿namespace Sample.Data.Contracts
 {
+    using Data.Models.Models;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Models.Models;
+    using System.Threading.Tasks;
 
     public interface ISampleDbContext
     {
@@ -15,5 +16,7 @@
         void Dispose();
 
         int SaveChanges();
+
+        Task<int> SaveChangesAsync();
     }
 }

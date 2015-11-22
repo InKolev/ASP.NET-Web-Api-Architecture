@@ -74,6 +74,10 @@
       <Project>{3a0acc93-7f52-4cfc-b796-efaea960875b}</Project>
       <Name>Sample.Data.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\Sample.Data\Sample.Data.csproj">
+      <Project>{b907b006-a3f0-424c-a6a7-77fc67a7b22e}</Project>
+      <Name>Sample.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Server\Sample.Server.DataTransferModels\Sample.Server.DataTransferModels.csproj">
       <Project>{8b223247-ff6f-4824-a088-20e314cca7e6}</Project>
       <Name>Sample.Server.DataTransferModels</Name>

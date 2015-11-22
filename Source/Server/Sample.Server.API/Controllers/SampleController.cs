@@ -13,10 +13,13 @@
     using Infrastructure.Validation;
     using Data.Models.Models;
     using AutoMapper;
+    using Infrastructure;
+    using Common.Constants;
 
     // [Authorize] the whole controller or only some of his methods.
     // TODO: Try returning ResponseResultObject() for each method;
     // TODO: Consider optimizing Remove methods.
+    [RoutePrefix("api/Sample")]
     public class SampleController : ApiController
     {
         private ISampleService samples;
@@ -30,7 +33,10 @@
         public async Task<IHttpActionResult> Get()
         {
             var result = await this.samples.GetAll()
-                .Select(s => Mapper.Map<SampleDataTransferModel>(s))
+                .Select(s => new SampleDataTransferModel()
+                {
+                    Description = s.Description
+                })
                 .ToListAsync();
 
             return this.Ok(result);
@@ -53,23 +59,32 @@
 
             return this.Ok(result);
         }
-    
-        [HttpPost]
-        [ValidateRequestModel]
-        public async Task<IHttpActionResult> Remove(SampleDataTransferModel sample)
-        {
-            var sampleToRemove = Mapper.Map<SampleModel>(sample);
-            var result = await this.samples.Remove(sampleToRemove);
 
-            return this.Ok(result);
+        [HttpDelete]
+        [ValidateRequestModel]
+        public async Task<IHttpActionResult> Remove([FromBody] SampleDataTransferModel sample)
+        {
+            var result = await this.samples.Remove(sample);
+            var responseMessage = ServerConstants.RemoveSuccessful;
+
+            if (result != true)
+            {
+                responseMessage = ServerConstants.RemoveFailed;
+            }
+            return this.Ok(new ResponseResultObject(result, responseMessage, result));
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IHttpActionResult> RemoveById(int id)
         {
             var result = await this.samples.RemoveById(id);
+            var responseMessage = ServerConstants.RemoveSuccessful;
 
-            return this.Ok(result);
+            if (result != true)
+            {
+                responseMessage = ServerConstants.RemoveFailed;
+            }
+            return this.Ok(new ResponseResultObject(result, responseMessage, result));
         }
     }
 }

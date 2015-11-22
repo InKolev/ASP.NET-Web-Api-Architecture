@@ -1,4 +1,4 @@
-﻿namespace Sample.Data.Common.Contracts
+﻿namespace Sample.Data.Contracts
 {
     using System;
     using System.Linq;

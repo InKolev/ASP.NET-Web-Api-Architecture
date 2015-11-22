@@ -1,8 +1,8 @@
 ﻿namespace Sample.Data.Contexts
 {
-    using Contracts;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models.Models;
+    using Contracts;
     using System.Data.Entity;
 
     public class SampleDbContext : IdentityDbContext<User>, ISampleDbContext

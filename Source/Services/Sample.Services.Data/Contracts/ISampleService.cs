@@ -14,7 +14,7 @@
 
         Task<int> Add(SampleDataTransferModel model);
 
-        Task<bool> Remove(SampleModel model);
+        Task<bool> Remove(SampleDataTransferModel model);
 
         Task<bool> RemoveById(int id);
     }
