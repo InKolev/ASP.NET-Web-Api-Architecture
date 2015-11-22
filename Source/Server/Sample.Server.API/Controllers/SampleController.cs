@@ -15,6 +15,7 @@
     using AutoMapper;
     using Infrastructure;
     using Common.Constants;
+    using System.Web.Http.Cors;
 
     // [Authorize] the whole controller or only some of his methods.
     // TODO: Try returning ResponseResultObject() for each method;
@@ -29,7 +30,10 @@
             this.samples = samples;
         }
 
+        // When CORS is enabled with this parameter list,
+        // Every external resource can get access to this route.
         [HttpGet]
+        [EnableCors("*", "*", "*")]
         public async Task<IHttpActionResult> Get()
         {
             var result = await this.samples.GetAll()
