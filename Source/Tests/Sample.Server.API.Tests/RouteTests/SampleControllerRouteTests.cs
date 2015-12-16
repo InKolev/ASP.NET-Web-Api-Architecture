@@ -22,7 +22,7 @@
         [TestMethod]
         public void SampleControllerPostActionShouldMapCorrectly()
         {
-            var model = TestObjectFactory.SampleControllerObjects.GetValidSampleDataTransferModel();
+            var model = TestObjectsFactory.SampleControllerObjects.GetValidSampleDataTransferModel();
 
             MyWebApi
                 .Routes(WebApiConfig.Configuration)
@@ -35,7 +35,7 @@
         [TestMethod]
         public void SampleControllerRemoveActionShouldMapCorrectly()
         {
-            var model = TestObjectFactory.SampleControllerObjects.GetValidSampleDataTransferModel();
+            var model = TestObjectsFactory.SampleControllerObjects.GetValidSampleDataTransferModel();
 
             MyWebApi
                 .Routes(WebApiConfig.Configuration)
